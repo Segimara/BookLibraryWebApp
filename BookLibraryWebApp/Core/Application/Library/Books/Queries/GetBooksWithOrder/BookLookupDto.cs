@@ -11,6 +11,7 @@ namespace Application.Library.Books.Queries
         public string Author { get; set; }
         public decimal Rating { get; set; }
         public int ReviewsNumber { get; set; }
+        public string Cover { get; set; }
         public void Mapping(Profile profile)
         {
             profile.CreateMap<Book, BookLookupDto>()
