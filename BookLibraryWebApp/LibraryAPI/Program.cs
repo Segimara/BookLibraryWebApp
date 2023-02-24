@@ -12,14 +12,21 @@ namespace LibraryAPI
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
-            // Add services to the container.
-
+            builder.Logging.ClearProviders();
+            builder.Logging.AddConsole();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "LibrarySpecificOrigins",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("https://localhost:5000",
+                                                         "https://localhost:4200");
+                                  });
+            });
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
+            builder.Services.AddLogging(logging => logging.AddConsole());
             builder.Services.AddAutoMapper(cfg =>
             {
                 cfg.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
@@ -42,23 +49,17 @@ namespace LibraryAPI
                     throw;
                 }
             }
-
-            // Configure the HTTP request pipeline.
+            
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI(config =>
                 {
-                    //config.RoutePrefix = String.Empty;
-                    //config.SwaggerEndpoint("swagger/swagger.json", "LibraryApi");
-                    //config.OAuthClientId("todolist-swagger");
-                    //config.OAuthAppName("ToDoList Swagger");
-                    //config.OAuthUsePkce();
                 });
             }
             app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
-
+            app.UseCors("LibrarySpecificOrigins");
             app.UseAuthorization();
 
 
