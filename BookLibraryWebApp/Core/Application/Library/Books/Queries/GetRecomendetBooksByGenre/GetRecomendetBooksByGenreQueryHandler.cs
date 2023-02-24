@@ -16,8 +16,7 @@ namespace Application.Library.Books.Queries
             _mapper = mapper;
         }
         public async Task<BookList> Handle(GetRecomendetBooksByGenreQuery request, CancellationToken cancellationToken)
-        {
-            //todo refactor 
+        { 
             var books = _dbContext.Books
                 .Include(x => x.Reviews)
                 .Include(x => x.Ratings)
