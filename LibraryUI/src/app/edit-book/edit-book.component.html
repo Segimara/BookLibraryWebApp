@@ -1,1 +1,59 @@
-<p>edit-book works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            <h1 *ngIf="isUpdate">Update</h1>
+            <h1 *ngIf="!isUpdate">Add</h1>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="bookForm" class="flex-col">
+
+            <div class="flex-row gap">
+                <mat-form-field class="d-none">
+                    <input matInput formControlName="id" placeholder="id" name="id">
+                </mat-form-field>
+                <div class="flex-col">
+                    <mat-form-field>
+                        <div class="">
+                            <label>Title</label>
+                            <input matInput formControlName="title" placeholder="Title" name="title" required>
+                        </div>
+                    </mat-form-field>
+                    <div class="p-5">
+                        <label>Cover</label>
+                        <input type="file" formControlName="cover" (change)="onFileSelected($event)">
+                    </div>
+                    <mat-form-field>
+                        <div class="">
+                            <label>Genre</label>
+                            <input matInput formControlName="genre" placeholder="Genre" name="genre" required>
+                        </div>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <div class="">
+                            <label>Author</label>
+                            <input matInput formControlName="author" placeholder="Author" name="author" required>
+                        </div>
+                    </mat-form-field>
+                </div>
+                <div class="flex-col">
+                    <div class="">
+                        <mat-form-field>
+                            <div class="">
+                                <label>Context</label>
+                                <textarea matInput formControlName="content" formControlName="content" name="content"
+                                    required></textarea>
+                            </div>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+            <mat-card-actions>
+                <button mat-raised-button color="primary" (click)="addBook()">Add</button>
+                <button mat-raised-button color="accent" (click)="clearForm()">Clear</button>
+            </mat-card-actions>
+        </form>
+    </mat-card-content>
+
+
+</mat-card>

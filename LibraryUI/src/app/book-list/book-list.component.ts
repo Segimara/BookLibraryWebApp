@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
-import { Client } from '../client.service';
+
+import { ClientService } from '../services/client.service';
+
+
 
 @Component({
   selector: 'app-book-list',
   templateUrl: './book-list.component.html',
   styleUrls: ['./book-list.component.scss'],
-  providers:  [ Client ]
+  providers: [ClientService]
 })
 export class BookListComponent {
 

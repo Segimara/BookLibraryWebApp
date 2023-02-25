@@ -1,12 +1,55 @@
-import { Component } from '@angular/core';
-import { Client } from '../client.service';
+
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ClientService, CreateUpdateBookCommand, ICreateUpdateBookCommand } from '../services/client.service';
+
 
 @Component({
   selector: 'app-edit-book',
   templateUrl: './edit-book.component.html',
   styleUrls: ['./edit-book.component.scss'],
-  providers:  [ Client ]
+  providers:  [ ClientService ]
 })
-export class EditBookComponent {
+export class EditBookComponent implements OnInit{
+  isUpdate: boolean
+  coverBase64!: string;
+  book: ICreateUpdateBookCommand = new CreateUpdateBookCommand();
+  bookForm = this.formBuilder.group({
+    id:[''],
+    title:[''],
+    cover:[''],
+    content:[''],
+    author:[''],
+    genre:[''],
+  })
 
+  constructor(private httpClient: ClientService, private formBuilder: FormBuilder)
+  {
+    this.isUpdate = false;
+
+  }
+
+  ngOnInit(): void {
+  }
+  onFileSelected(event: Event): void {
+    const file: File = (event.target as HTMLInputElement).files?.[0] as File;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.coverBase64 = reader.result?.toString() as string;
+        this.bookForm.patchValue({ cover: this.coverBase64 });
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  addBook()
+  {
+    const formValue = this.bookForm.value;
+    this.book = CreateUpdateBookCommand.fromJS(formValue);
+    console.log(this.book);
+  }
+  clearForm()
+  {
+
+  }
 }
