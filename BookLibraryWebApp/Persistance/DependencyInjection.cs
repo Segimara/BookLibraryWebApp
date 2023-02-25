@@ -12,7 +12,6 @@ namespace Persistence
             services.AddDbContext<LibraryDBContext>(opt =>
             {
                 opt.UseInMemoryDatabase(databaseName: "LibraryDB");
-                //opt.UseNpgsql("User ID=postgres;Password=32-89907;Host=localhost;Port=5432;Database=Library;");
             });
             services.AddScoped<ILibraryDBContext>(provider =>
                 provider.GetService<LibraryDBContext>());
