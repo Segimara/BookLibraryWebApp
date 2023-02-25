@@ -39,6 +39,7 @@ namespace LibraryAPI.Controllers
             return NoContent();
         }
         [HttpPost]
+        [RequestSizeLimit(100_000_000)]
         public async Task<ActionResult<int>> CreateBook([FromBody] CreateUpdateBookCommand command)
         {
             _logger.LogInformation($"CreateBook: {JsonSerializer.Serialize(command)}");

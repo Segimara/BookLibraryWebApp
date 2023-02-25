@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-
-import { ClientService } from '../services/client.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ClientService, BookList} from '../services/client.service';
 
 
 
@@ -10,6 +9,15 @@ import { ClientService } from '../services/client.service';
   styleUrls: ['./book-list.component.scss'],
   providers: [ClientService]
 })
-export class BookListComponent {
+export class BookListComponent implements OnInit{
+  @Input() bookList!: BookList;
+  
+  constructor()
+  {
+
+  }
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
 }

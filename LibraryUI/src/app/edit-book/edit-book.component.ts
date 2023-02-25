@@ -13,7 +13,7 @@ import { ClientService, CreateUpdateBookCommand, ICreateUpdateBookCommand } from
 export class EditBookComponent implements OnInit{
   isUpdate: boolean
   coverBase64!: string;
-  book: ICreateUpdateBookCommand = new CreateUpdateBookCommand();
+  book: CreateUpdateBookCommand = new CreateUpdateBookCommand();
   bookForm = this.formBuilder.group({
     id:[''],
     title:[''],
@@ -37,7 +37,6 @@ export class EditBookComponent implements OnInit{
       const reader = new FileReader();
       reader.onload = () => {
         this.coverBase64 = reader.result?.toString() as string;
-        this.bookForm.patchValue({ cover: this.coverBase64 });
       };
       reader.readAsDataURL(file);
     }
@@ -45,11 +44,17 @@ export class EditBookComponent implements OnInit{
   addBook()
   {
     const formValue = this.bookForm.value;
+    if (formValue.id == "")
+     {
+      formValue.id = undefined; 
+     }
     this.book = CreateUpdateBookCommand.fromJS(formValue);
+    this.book.cover = this.coverBase64;
+    this.httpClient.booksPOST(this.book)
     console.log(this.book);
   }
   clearForm()
   {
-
+    this.bookForm.reset();
   }
 }
