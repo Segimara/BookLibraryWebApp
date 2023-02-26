@@ -1,6 +1,10 @@
 <div class="" *ngIf = "bookList">
   <mat-list class="list" >
-    <mat-list-item class="w-100 h-100" *ngFor = "let book of bookList.books"><app-book-list-item [book] = 'book'></app-book-list-item></mat-list-item>
+    <mat-list-item class="w-100 h-100 p-0" *ngFor = "let book of bookList.books">
+      <div class="p-1">
+        <app-book-list-item [book] = 'book' class=""></app-book-list-item>
+      </div>
+    </mat-list-item>
   </mat-list>
 </div>
 <div class="p-5" *ngIf = "!bookList">

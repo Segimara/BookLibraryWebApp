@@ -15,9 +15,9 @@ export class ViewBookComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: number) {}
 
   ngOnInit(): void {
-    this.client.booksGETById(this.data).subscribe((data) =>
+    this.client.booksGETById(this.data).subscribe((d) =>
       {
-        this.book = data;
+        this.book = d;
       }
     );
   }

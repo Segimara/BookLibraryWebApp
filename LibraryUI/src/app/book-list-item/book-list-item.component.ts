@@ -18,10 +18,11 @@ export class BookListItemComponent implements OnInit {
   ngOnInit(): void {
     
   }
-  openDialog(id: number = 0) {
+  openDialog(id: number) {
     const dialogRef = this.dialog.open(ViewBookComponent, {
       width: '70vw',
-      data: { id }
+      maxHeight: '80vh',
+      data: id 
     });
 
     dialogRef.afterClosed().subscribe(result => {

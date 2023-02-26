@@ -13,11 +13,38 @@
   <div *ngIf="!book" class="p-5">
     Loading...
   </div>
-  <div *ngIf="book" mat-dialog-content>
-    <p>What's your favorite animal?</p>
-    <mat-form-field appearance="fill">
-      <mat-label>Favorite Animal</mat-label>
-      <input matInput>
-    </mat-form-field>
+  <div *ngIf="book" mat-dialog-content class="p-5">
+    <div class="flex-row gap">
+      <div class="flex-col img-container">
+        <img [src]="book.cover" alt="" class="img">
+        <div class="flex-row px-3">
+          <p class="mr-5 ">
+            Review: {{book.reviews?.length}}
+          </p>
+          <p>
+            Rating: {{book.rating | number:'1.0-3'}}
+          </p>
+        </div>
+      </div>
+      <div class="main">
+        <div class="flex-col">
+          <mat-card-title>{{book.title}}</mat-card-title>
+          <mat-card-subtitle>{{book.author}}, {{book.genre}}</mat-card-subtitle>
+          <div class="text-container">
+            <p>{{book.content}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!book.reviews || !book.reviews.length" class="">
+
+    </div>
+    <div class="reviews-container">
+      <div *ngFor="let review of book.reviews" class="">
+        <hr>
+        <p>{{review.reviewer}}</p>
+        <p>{{review.message}}</p>
+      </div>
+    </div>
   </div>
 </div>

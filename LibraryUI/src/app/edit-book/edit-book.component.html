@@ -1,13 +1,12 @@
 <mat-card>
     <mat-card-header>
         <mat-card-title>
-            <h1 *ngIf="isUpdate">Update</h1>
+            <h1 *ngIf="isUpdate">Edit</h1>
             <h1 *ngIf="!isUpdate">Add</h1>
         </mat-card-title>
     </mat-card-header>
     <mat-card-content>
         <form [formGroup]="bookForm" class="flex-col">
-
             <div class="flex-row gap">
                 <mat-form-field class="d-none">
                     <input matInput formControlName="id" placeholder="id" name="id">

@@ -20,8 +20,8 @@ namespace LibraryAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet("order=order")]
-        public async Task<ActionResult<BookList>> GetBooks([FromQuery] string order)
+        [HttpGet]
+        public async Task<ActionResult<BookList>> GetBooks([FromQuery] string? order)
         {
             _logger.LogInformation($"GetBooks by {order}");
             return Ok(await Mediator.Send(new GetBooksWithOrderQuery { Order = order }));

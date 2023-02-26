@@ -22,7 +22,7 @@ export class ClientService {
      * @return Success
      */
     booksGETAll(order: string): Observable<BookList> {
-        let url_ = this.baseUrl + "/api/Books/books?order={order}";
+        let url_ = this.baseUrl + "/api/books?order={order}";
         if (order === undefined || order === null)
             throw new Error("The parameter 'order' must be defined.");
         url_ = url_.replace("{order}", encodeURIComponent("" + order));
@@ -76,13 +76,30 @@ export class ClientService {
      * @return Success
      */
     booksGETById(id: number): Observable<BookDetailsVm> {
-        let url_ = this.baseUrl + "/api/Books/{id}";
+        let url_ = this.baseUrl + `/api/Books/${id}`;
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent(id));
-        url_ = url_.replace(/[?&]$/, "");
 
-        return this.http.get<BookDetailsVm>(url_);
+        let options_ : any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
+            return this.processBooksGET2(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processBooksGET2(response_ as any);
+                } catch (e) {
+                    return _observableThrow(e) as any as Observable<BookDetailsVm>;
+                }
+            } else
+                return _observableThrow(response_) as any as Observable<BookDetailsVm>;
+        }));
     }
 
     protected processBooksGET2(response: HttpResponseBase): Observable<BookDetailsVm> {
@@ -585,7 +602,7 @@ export interface IBookList {
 }
 
 export class BookLookupDto implements IBookLookupDto {
-    id?: number;
+    id: number;
     cover?: string | undefined;
     title?: string | undefined;
     author?: string | undefined;
@@ -593,6 +610,7 @@ export class BookLookupDto implements IBookLookupDto {
     reviewsNumber?: number;
 
     constructor(data?: IBookLookupDto) {
+        this.id = 0;
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -631,7 +649,7 @@ export class BookLookupDto implements IBookLookupDto {
 }
 
 export interface IBookLookupDto {
-    id?: number;
+    id: number;
     cover?: string | undefined;
     title?: string | undefined;
     author?: string | undefined;
