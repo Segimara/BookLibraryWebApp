@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ClientService, BookList} from '../services/client.service';
+import { UpdateListService } from '../services/UpdateList.service';
 
 
 
@@ -13,13 +14,18 @@ export class BookListComponent implements OnInit{
   bookList!: BookList;
   
   @Input() type!: string 
-  constructor(private client: ClientService)
+  constructor(private client: ClientService,
+    private updateListService: UpdateListService)
   {
 
   }
   ngOnInit(): void {
     this.iniBooks();
+    this.updateListService.getSubject().subscribe(() => {
+      this.iniBooks()
+    });
   }
+
   iniBooks() {
     switch(this.type)
     {

@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {BookLookupDto} from '../services/client.service';
+import { BookLookupDto } from '../services/client.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewBookComponent } from '../view-book/view-book.component';
 import { ClientService } from '../services/client.service';
+import { FillFormService } from '../services/FillForm.service';
+import { UpdateListService } from '../services/UpdateList.service';
+
 @Component({
   selector: 'app-book-list-item',
   templateUrl: './book-list-item.component.html',
@@ -11,8 +14,8 @@ import { ClientService } from '../services/client.service';
 export class BookListItemComponent implements OnInit {
   @Input() book!: BookLookupDto;
 
-  constructor(private dialog: MatDialog, private client: ClientService)
-  {
+  constructor(private dialog: MatDialog, private client: ClientService,
+    private fillFormServive: FillFormService) {
 
   }
   ngOnInit(): void {
@@ -22,11 +25,14 @@ export class BookListItemComponent implements OnInit {
     const dialogRef = this.dialog.open(ViewBookComponent, {
       width: '70vw',
       maxHeight: '80vh',
-      data: id 
+      data: id
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+  fillForm(id: number) {
+    this.fillFormServive.notifyComponent(id);
   }
 }

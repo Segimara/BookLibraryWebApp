@@ -9,7 +9,7 @@
           {{book.title}}
         </mat-card-title>
         <mat-card-subtitle class="mr-5 w-fitContent">
-          Review: {{book.reviewsNumber}} Rating: {{book.rating }}
+          Review: {{book.reviewsNumber}} Rating: {{book.rating | number: '1.0-3'}}
         </mat-card-subtitle>
       </div>
     </div>
@@ -17,7 +17,7 @@
       <button (click)="openDialog(book.id)" mat-mini-fab color="warn" aria-label="">
         <mat-icon>open_in_new</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" aria-label="">
+      <button (click)="fillForm(book.id)" mat-mini-fab color="warn" aria-label="">
         <mat-icon>edit</mat-icon>
       </button>
     </div>
