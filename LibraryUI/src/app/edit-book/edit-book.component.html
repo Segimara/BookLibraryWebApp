@@ -49,8 +49,8 @@
             </div>
             <mat-card-actions class="flex-row gap justify-content-center p-5 w-100">
                 <button mat-raised-button color="primary" (click)="addBook()">
-                    <p *ngIf="!isUpdate">Add</p>
-                    <p *ngIf="isUpdate">Update</p>
+                    <p class="btn_text" *ngIf="!isUpdate">Add</p>
+                    <p class="btn_text" *ngIf="isUpdate">Edit</p>
                 </button>
                 <button mat-raised-button color="accent" (click)="clearForm()">Clear</button>
             </mat-card-actions>

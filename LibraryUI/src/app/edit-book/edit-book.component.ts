@@ -81,7 +81,6 @@ export class EditBookComponent implements OnInit {
     if (this.isUpdate) {
 
     }
-    console.log(this.book);
 
   }
   clearForm() {

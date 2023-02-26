@@ -34,7 +34,6 @@ export class BookListComponent implements OnInit{
         this.client.booksGETAll("title").subscribe((data) => {
           this.bookList = data;
         });
-        console.log("all");
         break;
       }
       case 'RECOMENDET':
@@ -42,7 +41,6 @@ export class BookListComponent implements OnInit{
         this.client.recommended("horror").subscribe((data) => {
           this.bookList = data;
         });
-        console.log("recomendet");
         break;
       }
     }
