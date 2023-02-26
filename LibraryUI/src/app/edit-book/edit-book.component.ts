@@ -50,7 +50,10 @@ export class EditBookComponent implements OnInit{
      }
     this.book = CreateUpdateBookCommand.fromJS(formValue);
     this.book.cover = this.coverBase64;
-    this.httpClient.booksPOST(this.book)
+    this.httpClient.booksPOST(this.book).subscribe((resp) =>
+    {
+      console.log(resp);
+    });
     console.log(this.book);
   }
   clearForm()

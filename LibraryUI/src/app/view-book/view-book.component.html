@@ -1,1 +1,23 @@
-<p>view-book works!</p>
+<div class="">
+  <div class="title flex-row">
+    <h1 class="title-text w-100 p-3">
+      Details
+    </h1>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <hr>
+  <div *ngIf="!book" class="p-5">
+    Loading...
+  </div>
+  <div *ngIf="book" mat-dialog-content>
+    <p>What's your favorite animal?</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Favorite Animal</mat-label>
+      <input matInput>
+    </mat-form-field>
+  </div>
+</div>

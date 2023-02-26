@@ -15,14 +15,14 @@ export class ClientService {
 
     constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
         this.http = http;
-        this.baseUrl = "https://localhost:5000";
+        this.baseUrl = 'https://localhost:5000';
     }
 
     /**
      * @return Success
      */
     booksGETAll(order: string): Observable<BookList> {
-        let url_ = this.baseUrl + "/api/Books/{order}";
+        let url_ = this.baseUrl + "/api/Books/books?order={order}";
         if (order === undefined || order === null)
             throw new Error("The parameter 'order' must be defined.");
         url_ = url_.replace("{order}", encodeURIComponent("" + order));
@@ -79,29 +79,10 @@ export class ClientService {
         let url_ = this.baseUrl + "/api/Books/{id}";
         if (id === undefined || id === null)
             throw new Error("The parameter 'id' must be defined.");
-        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace("{id}", encodeURIComponent(id));
         url_ = url_.replace(/[?&]$/, "");
 
-        let options_ : any = {
-            observe: "response",
-            responseType: "blob",
-            headers: new HttpHeaders({
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_ : any) => {
-            return this.processBooksGET2(response_);
-        })).pipe(_observableCatch((response_: any) => {
-            if (response_ instanceof HttpResponseBase) {
-                try {
-                    return this.processBooksGET2(response_ as any);
-                } catch (e) {
-                    return _observableThrow(e) as any as Observable<BookDetailsVm>;
-                }
-            } else
-                return _observableThrow(response_) as any as Observable<BookDetailsVm>;
-        }));
+        return this.http.get<BookDetailsVm>(url_);
     }
 
     protected processBooksGET2(response: HttpResponseBase): Observable<BookDetailsVm> {
@@ -605,6 +586,7 @@ export interface IBookList {
 
 export class BookLookupDto implements IBookLookupDto {
     id?: number;
+    cover?: string | undefined;
     title?: string | undefined;
     author?: string | undefined;
     rating?: number;
@@ -623,6 +605,7 @@ export class BookLookupDto implements IBookLookupDto {
         if (_data) {
             this.id = _data["id"];
             this.title = _data["title"];
+            this.cover = _data["cover"];
             this.author = _data["author"];
             this.rating = _data["rating"];
             this.reviewsNumber = _data["reviewsNumber"];
@@ -649,6 +632,7 @@ export class BookLookupDto implements IBookLookupDto {
 
 export interface IBookLookupDto {
     id?: number;
+    cover?: string | undefined;
     title?: string | undefined;
     author?: string | undefined;
     rating?: number;

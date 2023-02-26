@@ -20,8 +20,8 @@ namespace LibraryAPI.Controllers
             _logger = logger;
         }
 
-        [HttpGet("{order=order}")]
-        public async Task<ActionResult<BookList>> GetBooks(string order)
+        [HttpGet("order=order")]
+        public async Task<ActionResult<BookList>> GetBooks([FromQuery] string order)
         {
             _logger.LogInformation($"GetBooks by {order}");
             return Ok(await Mediator.Send(new GetBooksWithOrderQuery { Order = order }));
@@ -29,6 +29,7 @@ namespace LibraryAPI.Controllers
         [HttpGet("{id:int=id}")]
         public async Task<ActionResult<BookDetailsVm>> GetBooks(int id)
         {
+            _logger.LogInformation($"GetBooks by order: {id}");
             return Ok(await Mediator.Send(new GetBookDetailsQuery { Id = id }));
         }
         [HttpDelete("{id=id}/{secret=secret}")]

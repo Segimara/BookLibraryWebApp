@@ -12,43 +12,43 @@
                 <mat-form-field class="d-none">
                     <input matInput formControlName="id" placeholder="id" name="id">
                 </mat-form-field>
-                <div class="flex-col">
+                <div class="flex-col .flex-grow-1 flex-shrink-1 w-100">
                     <mat-form-field>
-                        <div class="">
+                        <div class="w-100">
                             <label>Title</label>
                             <input matInput formControlName="title" placeholder="Title" name="title" required>
                         </div>
                     </mat-form-field>
-                    <div class="p-5">
-                        <label>Cover</label>
-                        <input type="file" formControlName="cover" (change)="onFileSelected($event)">
+                    <div class="">
+                        <label class="">Cover</label>
+                        <input class="p-5" type="file" formControlName="cover" (change)="onFileSelected($event)" required>
                     </div>
                     <mat-form-field>
-                        <div class="">
+                        <div class="w-100">
                             <label>Genre</label>
                             <input matInput formControlName="genre" placeholder="Genre" name="genre" required>
                         </div>
                     </mat-form-field>
                     <mat-form-field>
-                        <div class="">
+                        <div class="w-100">
                             <label>Author</label>
                             <input matInput formControlName="author" placeholder="Author" name="author" required>
                         </div>
                     </mat-form-field>
                 </div>
-                <div class="flex-col">
-                    <div class="">
-                        <mat-form-field>
-                            <div class="">
+                <div class="flex-col .flex-grow-1 flex-shrink-1 w-100">
+                    <div class="w-100 h-100">
+                        <mat-form-field class = "w-100 h-100 mxh-100" >
+                            <div class="h-100">
                                 <label>Context</label>
-                                <textarea matInput formControlName="content" formControlName="content" name="content"
+                                <textarea class="" matInput formControlName="content" formControlName="content" name="content"
                                     required></textarea>
                             </div>
                         </mat-form-field>
                     </div>
                 </div>
             </div>
-            <mat-card-actions>
+            <mat-card-actions class="flex-row gap justify-content-center p-5 w-100">
                 <button mat-raised-button color="primary" (click)="addBook()">Add</button>
                 <button mat-raised-button color="accent" (click)="clearForm()">Clear</button>
             </mat-card-actions>

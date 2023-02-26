@@ -10,14 +10,36 @@ import { ClientService, BookList} from '../services/client.service';
   providers: [ClientService]
 })
 export class BookListComponent implements OnInit{
-  @Input() bookList!: BookList;
+  bookList!: BookList;
   
-  constructor()
+  @Input() type!: string 
+  constructor(private client: ClientService)
   {
 
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    this.iniBooks();
+  }
+  iniBooks() {
+    switch(this.type)
+    {
+      case 'ALL':
+      {
+        this.client.booksGETAll("title").subscribe((data) => {
+          this.bookList = data;
+        });
+        console.log("all");
+        break;
+      }
+      case 'RECOMENDET':
+      {
+        this.client.recommended("horror").subscribe((data) => {
+          this.bookList = data;
+        });
+        console.log("recomendet");
+        break;
+      }
+    }
   }
 
 }

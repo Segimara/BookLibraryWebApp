@@ -2,3 +2,65 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.justify-content-center
+{
+  justify-content: center;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.p-5 {
+  padding: 20px;
+}
+
+.d-none {
+  display: none !important; 
+}
+.gap
+{
+  gap: 15px;
+}
+.flex-grow-1
+{
+  flex-grow: 1;
+}
+.flex-shrink-1
+{
+  flex-shrink: 1;
+}
+.w-100
+{
+  width: 100% !important;
+}
+.h-100
+{
+  height: 100% !important;
+}
+.mxh-100
+{
+  max-height: 100%;
+}
+.mr-5
+{
+  margin-right: 20px !important;
+}
+.mnh-100
+{
+  min-height: 100%;
+}
+.mt-5
+{
+  margin-top: 20px;
+}
+.mdc-dialog__container,  {
+  min-width: 300px;
+  min-height: 200px;
+}

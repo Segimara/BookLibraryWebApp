@@ -16,12 +16,12 @@ namespace LibraryAPI
             builder.Logging.AddConsole();
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy(name: "LibrarySpecificOrigins",
-                                  policy =>
-                                  {
-                                      policy.WithOrigins("https://localhost:5000",
-                                                         "https://localhost:4200");
-                                  });
+                options.AddPolicy(name: "LibrarySpecificOrigins", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader();
+                });
             });
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -36,6 +36,7 @@ namespace LibraryAPI
             builder.Services.AddApplication();
             builder.Services.AddPersistence();
             var app = builder.Build();
+            app.UseCors("LibrarySpecificOrigins");
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
@@ -49,7 +50,7 @@ namespace LibraryAPI
                     throw;
                 }
             }
-            
+
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
@@ -57,11 +58,13 @@ namespace LibraryAPI
                 {
                 });
             }
+            
             app.UseCustomExceptionHandler();
             app.UseHttpsRedirection();
-            app.UseCors("LibrarySpecificOrigins");
+            
             app.UseAuthorization();
 
+            app.UseRouting();
 
             app.MapControllers();
 

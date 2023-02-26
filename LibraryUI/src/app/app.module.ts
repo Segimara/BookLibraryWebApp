@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatListModule } from '@angular/material/list'
+import { MatDialogModule } from '@angular/material/dialog'; 
 
 import { ClientService } from './services/client.service';
 
@@ -30,7 +32,7 @@ import { ViewBookComponent } from './view-book/view-book.component';
     BookListComponent,
     BookListItemComponent,
     EditBookComponent,
-    ViewBookComponent
+    ViewBookComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +49,9 @@ import { ViewBookComponent } from './view-book/view-book.component';
     ReactiveFormsModule,
     MatCardModule,
     HttpClientModule,
-    MatTabsModule
+    MatTabsModule,
+    MatListModule,
+    MatDialogModule
   ],
 
   providers: [
