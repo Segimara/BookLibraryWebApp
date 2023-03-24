@@ -18,9 +18,9 @@ namespace LibraryAPI
             {
                 options.AddPolicy(name: "LibrarySpecificOrigins", builder =>
                 {
-                    builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
-                    .AllowAnyHeader();
+                    builder.AllowAnyOrigin();
+                    builder.AllowAnyMethod();
+                    builder.AllowAnyHeader();
                 });
             });
             builder.Services.AddControllers();
